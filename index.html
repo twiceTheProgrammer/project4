@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+ <head>
+   <meta charset="utf-8">
+   <title></title>
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+ </head>
+ <body>
+    <h3 class="heading display-4 text-center">Metrorail class activity</h3>
+    <hr style="color:lightslategrey; height : 3px;">
+    <table class="table table-striped table-dark">
+  <thead>
+    <tr>
+       <th scope="col">#</th>
+       <th scope="col">Train Number</th>
+       <th scope="col">Destination</th>
+       <th scope="col">Departure Time</th>
+       <th scope="col">Arrival Time</th>
+       <th scope="col">Passengers</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">1</th>
+      <td id="train-number"></td>
+      <td id="destination"></td>
+      <td id="depature-time"></td>
+      <td id="arrival-time"></td>
+      <td id="passengers"></td>
+    </tr>
+  </tbody>
+</table>
+ </body>
+</html>
+<script type="text/javascript">
+var waiting_passengers = [
+ {
+    id:1,
+    name: 'Mish',
+    height : 6,
+    skin_colour: 'brown',
+    age: 25,
+    sex : 1
+ },
+ {
+   id:2,
+   name: 'Beke',
+   height : 5.8,
+   skin_colour: 'brown',
+   age: 22,
+   sex : 0
+ },
+ {
+   id:3,
+   name: 'Sipho',
+   height : 5.8,
+   skin_colour: 'brown',
+   age: 22,
+   sex : 1
+ },
+ {
+   id:4,
+   name: 'Mandy',
+   height : 5.8,
+   skin_colour: 'brown',
+   age: 22,
+   sex : 0
+ },
+ {
+   id:5,
+   name: 'Lloyd',
+   height : 5.8,
+   skin_colour: 'brown',
+   age: 22,
+   sex : 1
+ },
+];
+function Passenger(passenger_data){
+
+        this.id = passenger_data.id;
+        this.name = passenger_data.name;
+        this.height = passenger_data.height;
+        this.skin_colour = passenger_data.skin_colour;
+        this.age = passenger_data.age;
+        this.sex = passenger_data.sex;
+}
+let trains = [
+ {
+   number : 1001,
+   direction: 'North',
+   departure_time: '08:00',
+   arrival_time: '09:20',
+   stops: 7,
+   capacity: 100,
+   passengers : []
+ },
+ {
+   number : 3005,
+   direction: 'South',
+   departure_time: '08:10',
+   arrival_time: '09:05',
+   stops: 5,
+   capacity:10,
+   passengers : []
+ }
+];
+function Train(train_data){
+
+        this.number = train_data.number;
+        this.direction = train_data.direction;
+        this.departure_time = train_data.departure_time;
+        this.arrival_time = train_data.arrival_time;
+        this.stops = train_data.stops;
+        this.capacity = train_data.capacity;
+        this.passengers = train_data.passengers;
+        this.board = function(passenger){
+            var passengers_on_train = this.passengers.length ;
+            if ( passengers_on_train >= this.capacity ){
+                console.log('Train is full , board the next one');
+            }
+            else {
+                this.passengers.push(passenger);
+                for (let index = 0 ; index < waiting_passengers.length ; index++){
+                    if ( waiting_passengers[index].id === passenger.id ){
+                        waiting_passengers.splice(index , 1);
+                    }
+                }
+            }
+        }
+}
+let southTrain_data = trains[1];
+let northTrain_data = trains[0];
+
+let southTrain = new Train(southTrain_data);
+let northTrain = new Train(northTrain_data);
+
+let Mish_data = waiting_passengers[0];
+let Beke_data = waiting_passengers[1];
+let Sipho_data = waiting_passengers[2];
+let Lloyd_data = waiting_passengers[3];
+
+const Mish = new Passenger(Mish_data);
+const Beke = new Passenger(Beke_data);
+const Sipho = new Passenger(Sipho_data);
+const Lloyd = new Passenger(Lloyd_data);
+
+southTrain.board(Mish);
+southTrain.board(Beke);
+southTrain.board(Sipho);
+southTrain.board(Lloyd);
+
+// function transport_commuters(){
+//     let commuter;
+//     for ( let index = 0 ; index < southTrain.passengers.length ; index++){
+//         commuter = southTrain.passengers[index].name;
+//         fetchElement('passengers').innerHTML = commuter;
+//     }
+// }
+//transport_commuters();
+$(document).ready(function(){
+    $('#train-number').prepend('<p>'+southTrain.number+'</p>');
+    $('#destination').prepend('<p>'+southTrain.direction+'</p>');
+    $('#depature-time').prepend('<p>'+southTrain.departure_time+'</p>');
+    $('#arrival-time').prepend('<p>'+southTrain.arrival_time+'</p>');
+    for (let index = 0 ; index < southTrain.passengers.length ; index++){
+          $('#passengers').prepend('<p>'+southTrain.passengers[index].name+'</p>');
+    }
+});
+debugger;
+</script>
