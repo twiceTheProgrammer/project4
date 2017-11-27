@@ -6,9 +6,10 @@
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
    <script type="text/javascript" src="js/passenger_scripts.js"></script>
+   <link rel="stylesheet" href="font-awesome-4.7.0/css/font-awesome.min.css">
  </head>
  <body>
-    <h3 class="heading display-4 text-center">Metrorail class activity</h3>
+    <h3 class="heading display-4 text-center"><i class="fa fa-subway" aria-hidden="true"></i>&nbsp;&nbsp;Metrorail class activity</h3>
     <hr style="color:lightslategrey; height : 3px;">
       <div class="container">
           <div class="row">
@@ -16,22 +17,26 @@
                 <h3 class="display-6 text-center">Waiting List</h3>
                 <ul class="list-group text-center" >
                   <li class="list-group-item " id="waiting-list"></li>
-                  <button type="button" class="btn btn-block btn-primary waiting-list-btn">View Waiting list</button>
+                  <li class="list-group-item waitingList-total">Waiting passengers : 0</li>
                 </ul>
             </div>
             <div class="col-sm-4">
                 <h3 class="display-6 text-center">South Train</h3>
                 <ul class="list-group text-center">
                   <li class="list-group-item" id="south-train"></li>
-                  <button type="button" class="btn btn-block btn-primary southTrain-passengers">View passengers</button>
                 </ul>
+                <hr>
+                <li class="list-group-item southTrain-total"><i class="fa fa-users" aria-hidden="true"></i>&nbsp;Total passengers : 0 </li>
+                <li class="list-group-item southTrain-capacity"></li>
             </div>
             <div class="col-sm-4">
                 <h3 class="display-6 text-center">North Train</h3>
                 <ul class="list-group text-center">
                   <li class="list-group-item" id="north-train"></li>
-                  <button type="button" class="btn btn-block btn-primary northTrain-passengers">View passengers</button>
                 </ul>
+                <hr>
+                <li class="list-group-item northTrain-total"><i class="fa fa-users" aria-hidden="true"></i>&nbsp;Total passengers : 0</li>
+                <li class="list-group-item northTrain-capacity"></li>
             </div>
           </div>
       </div>
