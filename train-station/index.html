@@ -2,9 +2,10 @@
 <html>
  <head>
    <meta charset="utf-8">
-   <title></title>
+   <title>Train class-activity</title>
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+   <script type="text/javascript" src="js/passenger_scripts.js"></script>
  </head>
  <body>
     <h3 class="heading display-4 text-center">Metrorail class activity</h3>
@@ -15,136 +16,24 @@
                 <h3 class="display-6 text-center">Waiting List</h3>
                 <ul class="list-group text-center" >
                   <li class="list-group-item " id="waiting-list"></li>
+                  <button type="button" class="btn btn-block btn-primary waiting-list-btn">View Waiting list</button>
                 </ul>
             </div>
             <div class="col-sm-4">
                 <h3 class="display-6 text-center">South Train</h3>
-                <ul class="list-group">
+                <ul class="list-group text-center">
                   <li class="list-group-item" id="south-train"></li>
+                  <button type="button" class="btn btn-block btn-primary southTrain-passengers">View passengers</button>
                 </ul>
             </div>
             <div class="col-sm-4">
                 <h3 class="display-6 text-center">North Train</h3>
-                <ul class="list-group">
+                <ul class="list-group text-center">
                   <li class="list-group-item" id="north-train"></li>
+                  <button type="button" class="btn btn-block btn-primary northTrain-passengers">View passengers</button>
                 </ul>
             </div>
           </div>
       </div>
  </body>
 </html>
-<script type="text/javascript">
-$(document).ready(function(){
-  let waiting_passengers = [
-   {
-      id:1,
-      name: 'Mish',
-      height : 6,
-      skin_colour: 'brown',
-      age: 25,
-      sex : 1
-   },
-   {
-     id:2,
-     name: 'Becky',
-     height : 5.8,
-     skin_colour: 'brown',
-     age: 22,
-     sex : 0
-   },
-   {
-     id:3,
-     name: 'Sipho',
-     height : 5.8,
-     skin_colour: 'brown',
-     age: 22,
-     sex : 1
-   },
-   {
-     id:4,
-     name: 'Mandy',
-     height : 5.8,
-     skin_colour: 'brown',
-     age: 22,
-     sex : 0
-   },
-   {
-     id:5,
-     name: 'Njabulo',
-     height : 5.8,
-     skin_colour: 'brown',
-     age: 22,
-     sex : 1
-   },
-  ];
-  let trains = [
-   {
-     number : 1001,
-     direction: 'North',
-     departure_time: '08:00',
-     arrival_time: '09:20',
-     stops: 7,
-     capacity: 10,
-     passengers : []
-   },
-   {
-     number : 3005,
-     direction: 'South',
-     departure_time: '08:10',
-     arrival_time: '09:05',
-     stops: 5,
-     capacity:10,
-     passengers : []
-   }
-  ];
-  function Train(train_data){
-
-          this.number = train_data.number;
-          this.direction = train_data.direction;
-          this.departure_time = train_data.departure_time;
-          this.arrival_time = train_data.arrival_time;
-          this.stops = train_data.stops;
-          this.capacity = train_data.capacity;
-          this.passengers = train_data.passengers;
-          this.board = function(passenger){
-              var passengers_on_train = this.passengers.length ;
-              if ( passengers_on_train >= this.capacity ){
-                    alert('Train is full! wait for the next one...');
-                    return false;
-              }
-              else {
-                  this.passengers.push(passenger);
-                  return true;
-              }
-          }
-    }
-
-  let southTrain_data = trains[1];
-  let northTrain_data = trains[0];
-  let southTrain = new Train(southTrain_data);
-  let northTrain = new Train(northTrain_data);
-
-let final_passengers = [];
-for(let passenger of waiting_passengers){
-  $('#waiting-list').prepend('<div><br>'+passenger.name+' <button class="btn btn-block btn-dark board-btn" data-passenger-sex="'+passenger.sex+'" data-passenger-id="'+passenger.id+'">Board</button></div>');
-}
-
-$('.board-btn').on('click', function(){
-      let clicked_button = $(this);
-      clicked_button.parent().hide('slow');
-      let passenger_sex = $(this).data('passenger-sex');
-      let passenger_id = $(this).data('passenger-id');
-      let passenger = waiting_passengers.find(function (obj) { return obj.id === passenger_id; });
-      if ( passenger_sex == true ){
-          if ( northTrain.board(passenger) == true ){
-              $('#north-train').prepend('<br>'+passenger.name);
-          }
-      }
-      else {
-          if ( southTrain.board(passenger) == true ){
-            $('#south-train').prepend('<br>'+passenger.name);
-          }
-      }
-});
-});
-</script>
